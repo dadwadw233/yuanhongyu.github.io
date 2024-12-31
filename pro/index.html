@@ -1,59 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>YYH's Homepage</title><meta name="author" content="Yuanhong Yu"><link rel="shortcut icon" href="/img/favicon.png"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><meta name="generator" content="Hexo 6.3.0"></head><body><header id="page_header"><div class="header_wrap"><div id="blog_name"><a class="blog_title" id="site-name" href="/">YYH's Homepage</a></div><button class="menus_icon"><div class="navicon"></div></button><ul class="menus_items"><li class="menus_item"><a class="site-page" href="/pro/"> Projects</a></li><li class="menus_item"><a class="site-page" href="/attaches/yyh-en.pdf"> CV</a></li></ul></div></header><main id="page_main"><div class="side-card sticky"><div class="card-wrap" itemscope itemtype="http://schema.org/Person"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/rm.jpg'" alt="avatar"></div><div class="author-discrip"><h3>Yuanhong Yu</h3><p class="author-bio">make merry while you can</p></div><div class="author-links"><button class="btn m-social-links">Links</button><ul class="social-icons"><li><a class="social-icon" href="https://github.com/dadwadw233" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a></li><li><a class="social-icon" href="mailto:yuanhongyu.me@gmail.com" target="_blank"><i class="fas fa-envelope" aria-hidden="true"></i></a></li></ul></div><a class="cv-links" href="/attaches/yyh-en.pdf" target="_blank"><i class="fas fa-file-pdf" aria-hidden="true"><span>My Detail CV.</span></i></a></div></div><div class="page" itemscope itemtype="http://schema.org/CreativeWork"><h2 class="page-title">Projects</h2><article><h2 id="ICRA-RoboMaster-University-AI-Challenge"><a href="#ICRA-RoboMaster-University-AI-Challenge" class="headerlink" title="ICRA RoboMaster University AI Challenge"></a>ICRA RoboMaster University AI Challenge</h2><p>RMUA 2022 is a competition where two teams of two automatic robots each battle against each other in a rune-filled arena. The teams have to use the official robotics platform to program their robots to move, control and make autonomous decisions based on the environmental information of the arena. The robots shoot projectiles at the enemy’s robots and try to reduce their HP. The team with the highest robot HP at the end of the game wins.</p>
-<p>Our team won the 3rd prize in the competition in May 2022. My main role was to work on the localization and navigation of our robot.</p>
-<ul>
-<li><p>To overcome the challenges of the competition venue environment, we installed two lidars at different heights on our robot. This allowed us to fuse the point cloud information from multiple radars and achieve better positioning accuracy.</p>
-<div align=center><img src=car.png></div></li>
-</ul>
-<div align=center><img src=image18.GIF></div>
+extends includes/layout
 
-
-
-<ul>
-<li><p>The competition arena is highly symmetrical, which makes it hard to position the robot accurately. Moreover, the robot may encounter strong collisions during the battle, which can also affect its positioning. Furthermore, the robot may slip its tires when starting or stopping, which can introduce errors in its odometer-based positioning scheme. To address these challenges, we use the sentry camera at the edge of the field to capture the robot’s position and assist in its localization.</p>
-<div align=center><img src=camera.png></div>
-</li>
-<li><p>For static map creation, we used the cartographer algorithm. For dynamic obstacle avoidance, we used the S2 radar on the robot’s head to scan and detect the enemy vehicles, since the A3 radar on the chassis was blocked by the wheels and had limited scanning ability. For global path planning, we used the well-established A* algorithm with a frequency of 2hz. For local path planning, we used the teb algorithm to optimize the trajectory. Based on our reliable positioning scheme, we adjusted the teb parameters to increase the robot’s speed and smoothness of motion. The robot’s average speed was 1.3m&#x2F;s and its maximum speed was 1.75m&#x2F;s.</p>
-<div align=center><img src=image19.GIF></div>
-
-
-</li>
-<li><p>To provide more realistic strategies for the decision-making level, we incorporated the information of enemy robots from the field-side sentry camera into the costmap and set an expansion area for it. This way, the robot could avoid getting too close to the enemy robot and being rammed or hit when planning its path. This approach compensated for the limitation of LIDAR in scanning obstacles.</p>
-</li>
-</ul>
-<h2 id="2022-WeChat-Program-Application-DevelopmentCompetition"><a href="#2022-WeChat-Program-Application-DevelopmentCompetition" class="headerlink" title="2022 WeChat Program Application Development	Competition"></a>2022 WeChat Program Application Development	Competition</h2><p>From March to May 2022, I was the project leader of a team that developed the V5robot applet and entered the WeChat applet competition. We won the second prize in the Northwest Region.</p>
-<p>V5robot applet is a platform for promoting robotics education. It has the main features of strong interactivity, easy accessibility, and comprehensive content. It covers robotics theory knowledge in modules such as navigation, vision, and control. It also adds small games to make it more fun. V5robot is also used as a recruitment platform for the soccer robotics base of Northwestern Polytechnic University.</p>
-<center class="half">
-    <img align="left" src=V5robot.png width=80% height = 100%>
-<img align="right" src=pathfinding.gif height=30% width=20%>
-</center>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2 id="Point-pair-feature-based-pose-estimation"><a href="#Point-pair-feature-based-pose-estimation" class="headerlink" title="Point pair feature-based pose estimation"></a>Point pair feature-based pose estimation</h2><p>Point Pair Feature (PPF) is a 4-dimensional feature based on a 3D point cloud, which is defined as follows:</p>
-<div align=center><img src=PPF.png></div>
-
-<p>The PPF method consists of two parts: offline and online. In the offline part, the model point cloud is downsampled and the PPF features are extracted and stored in a hash table. In the online part, the site point cloud is downsampled and the PPF features are extracted. Then, the matching features are found in the hash table and a set of correspondences is created. Next, a set of pose hypotheses is generated and voted on. Finally, the best transformation matrix is obtained by selecting the most voted hypothesis.</p>
-<p>During my internship at the ASGO-3D lab of Northwestern Polytechnic University, I implemented the PPF-based center point voting pose estimation algorithm from “<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9429889">Efficient Center Voting for Object Detection and 6D Pose Estimation in 3D Point Cloud</a>”. The main improvement of this method is that it converts the implicit voting of PPF into an explicit voting method of center voting. This also changes the implementation of related components such as pose hypothesis generation, clustering, and verification. I tested the results on the U3OR dataset.</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/dadwadw233/Central_Voting_PPF">code</a></p>
-<div align=center><img src=centrer_voting1.png width=130%></div>
-
-<div align=center><img src=center_voting2.png></div>
-
-<div align=center><img src=center_voting3.png></div>
-
-
-</article></div></main><div class="nav-wrap"><div class="nav"><button class="site-nav"><div class="navicon"></div></button><ul class="nav_items"><li class="nav_item"><a class="nav-page" href="/pro/"> Projects</a></li><li class="nav_item"><a class="nav-page" href="/attaches/yyh-en.pdf"> CV</a></li></ul></div><div class="cd-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></div></div><footer id="page_footer"><div class="footer_wrap"><div class="copyright">&copy;2020 - 2023 by Yuanhong Yu</div><div class="theme-info">Powered by <a target="_blank" href="https://hexo.io" rel="nofollow noopener">Hexo</a> & <a target="_blank" href="https://github.com/PhosphorW/hexo-theme-academia" rel="nofollow noopener">Academia Theme</a></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery-pjax@latest/jquery.pjax.min.js"></script><script src="/js/main.js"></script></body></html>
+block content
+    .page(itemscope itemtype='http://schema.org/CreativeWork')
+        h2.page-title!= page.title
+        article!= page.content
